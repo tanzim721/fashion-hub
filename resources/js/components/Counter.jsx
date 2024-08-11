@@ -16,9 +16,17 @@ export default function Counter() {
   };
   return (
     <div>
-        <div className="row">
+        <header class="header">
+            <div class="brand">FashionHub</div>
+            <div class="cart-icon">
+                {/* <img src="https://via.placeholder.com/40x40" alt="Cart Icon" /> */}
+                <i className="fas fa-bag-shopping"></i>
+                <div class="notification">{ count }</div>
+            </div>
+        </header>
+        <div className="row mt-3">
             <div className="col">
-                <img src="https://via.placeholder.com/500" className="img-fluid border-spacing-1" alt="Product" />
+                <img src="https://via.placeholder.com/500" className="img-fluid border-spacing-1 product-image" alt="Product" />
                 <div className="d-flex mt-3">
                     <img src="https://via.placeholder.com/80" className="img-thumbnail me-2" alt="Thumbnail 1" />
                     <img src="https://via.placeholder.com/80" className="img-thumbnail me-2" alt="Thumbnail 2" />
@@ -26,34 +34,44 @@ export default function Counter() {
                     <img src="https://via.placeholder.com/80" className="img-thumbnail me-2" alt="Thumbnail 4" />
                 </div>
             </div>
+
             <div className="col">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Decoration</a></li>
                         <li class="breadcrumb-item"><a href="#">Furniture</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sideboard</li>
+                        <li class="breadcrumb-item"><a href="#">Storages</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><strong style={{ paddingTop: "10px" }}>Sideboard</strong></li>
                     </ol>
                 </nav>
                 <h2>Embrace Sideboard</h2>
                 <p class="text-muted">Teixeira Design Studio</p>
+                <hr />
                 <div className="row">
-                    <div className="col-2"><p class="text-muted price">$71.56</p></div>
+                    <div className="col-2">
+                        <p class="text-muted price">$71.56</p>
+                    </div>
                     <div className="col-10">
                         <p class="reviews">
-                            <span style={{ paddingBottom: "5px" }}><button type="button" className="me-1" style={{ backgroundColor: "#ffffff", borderRadius: "12px" }}>★ 4.8</button> <button type="button" className="me-1" style={{ backgroundColor: "#ffffff", borderRadius: "12px" }}> <i className="fa fa-star"></i> 67 Reviews</button></span><br />
-                            <span>93% of buyers found this recommended.</span>
+                            <span>
+                                <button type="button" className="me-1" style={{ backgroundColor: "#ffffff", borderRadius: "12px" }}>★ 4.8</button>
+                                <button type="button" className="me-1" style={{ backgroundColor: "#ffffff", borderRadius: "12px" }}> <i className="fa fa-star"></i> 67 Reviews</button>
+                            </span>
+                            <br />
+                            <span className="mt-2">93% of buyers have recommended thiss.</span>
                         </p>
                     </div>
                 </div>
-                <p><strong>93%</strong> of buyers have recommended this.</p>
+                <hr />
                 <div className="mb-3">
-                    <label htmlFor="" className="form-label">Choose a Color</label>
+                    <label htmlFor="" className="form-label">Choose a Color</label> <br />
                     <button class="btn btn-outline-secondary me-2 rounded-circle" style={{ backgroundColor: "red" }}></button>
                     <button class="btn btn-outline-secondary me-2 rounded-circle" style={{ backgroundColor: "red" }}></button>
                     <button class="btn btn-outline-secondary me-2 rounded-circle" style={{ backgroundColor: "red" }}></button>
                     <button class="btn btn-outline-secondary me-2 rounded-circle" style={{ backgroundColor: "red" }}></button>
                 </div>
+                <hr />
                 <div class="mb-3">
                     <label class="form-label">Choose a Size</label>
                     <div>
@@ -64,15 +82,21 @@ export default function Counter() {
                         <button class="btn btn-outline-secondary btn-sm me-2">XXL</button>
                     </div>
                 </div>
+                <hr />
                 <div class="mb-4">
-                    <label class="form-label">Quantity</label>
-                    <div class="input-group">
-                        <button class="btn btn-outline-secondary" onClick={handleDecrement}>-</button>
-                        <span class="btn btn-outline-secondary"> {count} </span>
-                        <button class="btn btn-outline-secondary" onClick={handleIncrement}>+</button>
+                    <div className="row">
+                        <div className="col-4">
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary" onClick={handleDecrement}>-</button>
+                                <span class="btn btn-outline-secondary"> {count} </span>
+                                <button class="btn btn-outline-secondary" onClick={handleIncrement}>+</button>
+                            </div>
+                        </div>
+                        <div className="col-8">
+                            <button class="btn btn-primary w-100">${count * 71.56} Add To Cart</button>
+                        </div>
                     </div>
                 </div>
-                <button class="btn btn-primary btn-lg w-100">${count * 71.56} Add To Cart</button>
             </div>
         </div>
 
