@@ -12,26 +12,60 @@ export default function Counter() {
 
   // Create handleDecrement event handler
   const handleDecrement = () => {
-    setCount(prevCount => prevCount - 1);
+    setCount(prevCount => (prevCount > 0 ? prevCount - 1 : prevCount));
   };
   return (
     <div>
         <header class="header">
             <div class="brand">FashionHub</div>
             <div class="cart-icon">
-                {/* <img src="https://via.placeholder.com/40x40" alt="Cart Icon" /> */}
                 <i className="fas fa-bag-shopping"></i>
                 <div class="notification">{ count }</div>
             </div>
         </header>
         <div className="row mt-3">
             <div className="col">
-                <img src="https://via.placeholder.com/500" className="img-fluid border-spacing-1 product-image" alt="Product" />
+                {/* <img src="https://via.placeholder.com/500" className="img-fluid border-spacing-1 product-image" alt="Product" />
                 <div className="d-flex mt-3">
                     <img src="https://via.placeholder.com/80" className="img-thumbnail me-2" alt="Thumbnail 1" />
                     <img src="https://via.placeholder.com/80" className="img-thumbnail me-2" alt="Thumbnail 2" />
                     <img src="https://via.placeholder.com/80" className="img-thumbnail me-2" alt="Thumbnail 3" />
                     <img src="https://via.placeholder.com/80" className="img-thumbnail me-2" alt="Thumbnail 4" />
+                </div> */}
+                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://via.placeholder.com/600x800" class="d-block w-100" alt="..." />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://via.placeholder.com/600x800" class="d-block w-100" alt="..." />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://via.placeholder.com/600x800" class="d-block w-100" alt="..." />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://via.placeholder.com/600x800" class="d-block w-100" alt="..." />
+                        </div>
+                    </div>
+
+                    <div class="carousel-thumbnails-container text-center pt-2">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+
+                        <div class="carousel-thumbnails">
+                            <img src="https://via.placeholder.com/80x80" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" className="img-thumbnail me-1" alt="..." />
+                            <img src="https://via.placeholder.com/80x80" data-bs-target="#carouselExample" data-bs-slide-to="1" className="img-thumbnail me-1" alt="..." />
+                            <img src="https://via.placeholder.com/80x80" data-bs-target="#carouselExample" data-bs-slide-to="2" className="img-thumbnail me-1" alt="..." />
+                            <img src="https://via.placeholder.com/80x80" data-bs-target="#carouselExample" data-bs-slide-to="3" className="img-thumbnail me-1" alt="..." />
+                        </div>
+
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden color-dark">Next</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -87,7 +121,7 @@ export default function Counter() {
                     <div className="row">
                         <div className="col-4">
                             <div class="input-group">
-                                <button class="btn btn-outline-secondary" onClick={handleDecrement}>-</button>
+                                <button class="btn btn-outline-secondary" onClick={handleDecrement} disabled={count === 0}>-</button>
                                 <span class="btn btn-outline-secondary"> {count} </span>
                                 <button class="btn btn-outline-secondary" onClick={handleIncrement}>+</button>
                             </div>
@@ -107,7 +141,7 @@ export default function Counter() {
                         <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab">Description</button>
                     </li>
                 </ul>
-                <div class="tab-content p-3" id="myTabContent">
+                <div class="tab-content p-3 product-section" id="myTabContent">
                     <div class="tab-pane fade show active" id="description" role="tabpanel">
                         <h4>Product Description</h4>
                         <p>When it’s colder than the far side of the moon and spitting rain too, you’ve still got to look good. From water-repellent leather to a rugged outsole, the Lunar Force 1 adapts AF-1 style, so you can keep your flame burning when the weather hits. Metal lace hardware and extended tongue bring mountain boot toughness, while the star-studded toe design gives your look the edge.</p>
