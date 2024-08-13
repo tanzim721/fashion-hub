@@ -1,11 +1,39 @@
 <div>
+
     <header class="header">
         <div class="brand">FashionHub</div>
-        <div class="cart-icon">
+        <div class="cart-icon" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
             <i class="fas fa-bag-shopping"></i>
-            <div class="notification">1</div>
+            <div class="notification" id="notification">1</div>
+        </div>
+        <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalToggleLabel"></h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    @if (count($product->image) > 0)
+                        <div class="col-6">
+                            <img src="{{ asset($product->image[0]) }}" class="d-block w-100" alt="Product Image 1" style="height: 300px;"/>
+                        </div>
+                    @endif
+                    <div class="col-6">
+                        <h3>Description</h3>
+                        <p>{{ $product->name }}</p>
+
+                    </div>
+                  </div>
+                  <button class="btn btn-primary float-end" data-bs-toggle="modal">Submit</button>
+                </div>
+              </div>
+            </div>
         </div>
     </header>
+
+
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-6">
@@ -13,7 +41,7 @@
                     <div class="carousel-inner">
                         @foreach($product->image as $index => $image)
                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                <img src="{{ asset($image) }}" class="d-block w-100" alt="Product Image {{ $index + 1 }}" />
+                                <img src="{{ asset($image) }}" class="d-block w-100" alt="Product Image {{ $index + 1 }}" style="height: 650px; padding-right: 60px;"/>
                             </div>
                         @endforeach
                     </div>
@@ -23,7 +51,7 @@
                             <span class="visually-hidden">Previous</span>
                         </button>
 
-                        <div class="carousel-thumbnails d-flex justify-content-center mt-2">
+                        <div class="carousel-thumbnails d-flex justify-content-center mt-2 pe-4">
                             @foreach($product->image as $index => $image)
                                 <img src="{{ asset($image) }}" data-bs-target="#carouselExample" data-bs-slide-to="{{ $index }}" class="img-thumbnail me-1 {{ $loop->first ? 'active' : '' }}" alt="Thumbnail {{ $index + 1 }}" />
                             @endforeach
@@ -86,13 +114,15 @@
                 <hr />
                 <form action="{{ route('product.selections.store') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}"> <!-- Add this line to include the product ID -->
                     <div class="mb-3">
                         <label class="form-label">Choose a Color</label>
                         <br />
-                        <button type="button" class="btn btn-outline-secondary me-2 rounded-circle" style="background-color: red" onclick="selectColor('red')"></button>
-                        <button type="button" class="btn btn-outline-secondary me-2 rounded-circle" style="background-color: blue" onclick="selectColor('blue')"></button>
-                        <button type="button" class="btn btn-outline-secondary me-2 rounded-circle" style="background-color: green" onclick="selectColor('green')"></button>
-                        <button type="button" class="btn btn-outline-secondary me-2 rounded-circle" style="background-color: yellow" onclick="selectColor('yellow')"></button>
+                        <button type="button" class="color-btn selected me-2 rounded-circle" style="background-color: #E6DAC1;" onclick="selectColor('#E6DAC1')"></button>
+                        <button type="button" class="color-btn me-2 rounded-circle" style="background-color: #B4D197;" onclick="selectColor('#B4D197')"></button>
+                        <button type="button" class="color-btn me-2 rounded-circle" style="background-color: #ABB6E0;" onclick="selectColor('#ABB6E0')"></button>
+                        <button type="button" class="color-btn me-2 rounded-circle" style="background-color: #E3B8E0;" onclick="selectColor('#E3B8E0')"></button>
+                        <button type="button" class="color-btn me-2 rounded-circle" style="background-color: #A58E69;" onclick="selectColor('#A58E69')"></button>
                         <input type="hidden" id="color" name="color">
                     </div>
                     <hr />
@@ -111,20 +141,12 @@
                     <div class="mb-4">
                         <div class="row align-items-center">
                             <div class="col-6 col-sm-5">
-                                <div class="input-group">
-                                    <button type="button" class="btn btn-outline-secondary" onclick="decrement()" id="decrement">
-                                        -
-                                    </button>
-                                    <span class="btn btn-outline-secondary" id="quantity">1</span>
-                                    <button type="button" class="btn btn-outline-secondary" onclick="increment()">
-                                        +
-                                    </button>
-                                    <input type="hidden" id="quantity_input" name="quantity" value="1">
-                                </div>
+                                @livewire('quantity-counter', ['price' => $product->price])
                             </div>
+
                             <div class="col-6 col-sm-7">
                                 <button type="submit" class="btn btn-primary w-100">
-                                    $71.56 Add To Cart
+                                   $71.56 Add To Cart
                                 </button>
                             </div>
                         </div>
