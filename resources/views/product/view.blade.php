@@ -4,31 +4,52 @@
         <div class="brand">FashionHub</div>
         <div class="cart-icon" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
             <i class="fas fa-bag-shopping"></i>
-            <div class="notification" id="notification">1</div>
+            <div class="notification" id="notification">{{ $selections->quantity }}</div>
         </div>
-        <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+            tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalToggleLabel"></h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <div class="row">
-                    @if (count($product->image) > 0)
-                        <div class="col-6">
-                            <img src="{{ asset($product->image[0]) }}" class="d-block w-100" alt="Product Image 1" style="height: 300px;"/>
-                        </div>
-                    @endif
-                    <div class="col-6">
-                        <h3>Description</h3>
-                        <p>{{ $product->name }}</p>
-
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                  </div>
-                  <button class="btn btn-primary float-end" data-bs-toggle="modal">Submit</button>
+                    <div class="modal-body">
+                        <div class="row">
+                            @if (count($product->image) > 0)
+                                <div class="col-4">
+                                    <img src="{{ asset($product->image[0]) }}" class="d-block w-100" alt="Product Image 1" style="height: 100px;" />
+                                </div>
+                            @endif
+                            <div class="col-8">
+                                <h5><strong>{{ $product->name }}</strong></h5>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <p>{{ $product->subtitle }}</p>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="input-group">
+                                            <button type="button" class="btn btn-outline-secondary">
+
+                                                -
+                                            </button>
+                                            <span class="btn btn-outline-secondary">{{ $selections->quantity }}</span>
+                                            <button type="button" class="btn btn-outline-secondary">
+                                                +
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <button type="button" class="btn color-btn me-2 rounded-circle" style="background-color: {{ $selections->color }}" onclick="selectColor('{{ $selections->color }}')"></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm me-1" onclick="selectSize('XXL')">{{ $selections->size }}</button>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-primary mt-3" data-bs-toggle="modal">${{ $product->price * $selections->quantity + ($product->price * 0.25 * $selections->quantity) }} Buy Now</button>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
         </div>
     </header>
@@ -39,25 +60,32 @@
             <div class="col-md-6">
                 <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        @foreach($product->image as $index => $image)
+                        @foreach ($product->image as $index => $image)
                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                <img src="{{ asset($image) }}" class="d-block w-100" alt="Product Image {{ $index + 1 }}" style="height: 650px; padding-right: 60px;"/>
+                                <img src="{{ asset($image) }}" class="d-block w-100"
+                                    alt="Product Image {{ $index + 1 }}"
+                                    style="height: 650px; padding-right: 60px;" />
                             </div>
                         @endforeach
                     </div>
                     <div class="carousel-thumbnails-container text-center pt-2">
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
 
                         <div class="carousel-thumbnails d-flex justify-content-center mt-2 pe-4">
-                            @foreach($product->image as $index => $image)
-                                <img src="{{ asset($image) }}" data-bs-target="#carouselExample" data-bs-slide-to="{{ $index }}" class="img-thumbnail me-1 {{ $loop->first ? 'active' : '' }}" alt="Thumbnail {{ $index + 1 }}" />
+                            @foreach ($product->image as $index => $image)
+                                <img src="{{ asset($image) }}" data-bs-target="#carouselExample"
+                                    data-bs-slide-to="{{ $index }}"
+                                    class="img-thumbnail me-1 {{ $loop->first ? 'active' : '' }}"
+                                    alt="Thumbnail {{ $index + 1 }}" />
                             @endforeach
                         </div>
 
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -85,24 +113,16 @@
                         </li>
                     </ol>
                 </nav>
-                    <h2>{{ $product->name }}</h2>
-                    <p class="text-muted">{{ $product->subtitle }}</p>
+                <h2>{{ $product->name }}</h2>
+                <p class="text-muted">{{ $product->subtitle }}</p>
                 <hr />
                 <div class="d-flex justify-content-between align-items-center">
                     <p class="text-muted price">$71.56</p>
                     <p class="reviews">
-                        <button
-                            type="button"
-                            class="me-1 btn btn-light"
-                            style="border-radius: 12px;"
-                        >
+                        <button type="button" class="me-1 btn btn-light" style="border-radius: 12px;">
                             ★ 4.8
                         </button>
-                        <button
-                            type="button"
-                            class="me-1 btn btn-light"
-                            style="border-radius: 12px;"
-                        >
+                        <button type="button" class="me-1 btn btn-light" style="border-radius: 12px;">
                             <i class="fa fa-star"></i> 67 Reviews
                         </button>
                         <br />
@@ -114,42 +134,42 @@
                 <hr />
                 <form action="{{ route('product.selections.store') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="product_id" value="{{ $product->id }}"> <!-- Add this line to include the product ID -->
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
                     <div class="mb-3">
                         <label class="form-label">Choose a Color</label>
                         <br />
-                        <button type="button" class="color-btn selected me-2 rounded-circle" style="background-color: #E6DAC1;" onclick="selectColor('#E6DAC1')"></button>
-                        <button type="button" class="color-btn me-2 rounded-circle" style="background-color: #B4D197;" onclick="selectColor('#B4D197')"></button>
-                        <button type="button" class="color-btn me-2 rounded-circle" style="background-color: #ABB6E0;" onclick="selectColor('#ABB6E0')"></button>
-                        <button type="button" class="color-btn me-2 rounded-circle" style="background-color: #E3B8E0;" onclick="selectColor('#E3B8E0')"></button>
-                        <button type="button" class="color-btn me-2 rounded-circle" style="background-color: #A58E69;" onclick="selectColor('#A58E69')"></button>
+                        <button type="button" class="btn color-btn me-2 rounded-circle"
+                            style="background-color: #E6DAC1;" onclick="selectColor('#E6DAC1')"></button>
+                        <button type="button" class="btn color-btn me-2 rounded-circle"
+                            style="background-color: #B4D197;" onclick="selectColor('#B4D197')"></button>
+                        <button type="button" class="btn color-btn me-2 rounded-circle"
+                            style="background-color: #ABB6E0;" onclick="selectColor('#ABB6E0')"></button>
+                        <button type="button" class="btn color-btn me-2 rounded-circle"
+                            style="background-color: #E3B8E0;" onclick="selectColor('#E3B8E0')"></button>
+                        <button type="button" class="btn color-btn me-2 rounded-circle"
+                            style="background-color: #A58E69;" onclick="selectColor('#A58E69')"></button>
                         <input type="hidden" id="color" name="color">
                     </div>
                     <hr />
                     <div class="mb-3">
                         <label class="form-label">Choose a Size</label>
                         <div>
-                            <button type="button" class="btn btn-outline-secondary btn-sm me-1" onclick="selectSize('Small')">Small</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm me-1" onclick="selectSize('Medium')">Medium</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm me-1" onclick="selectSize('Large')">Large</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm me-1" onclick="selectSize('Extra Large')">Extra Large</button>
-                            <button type="button" class="btn btn-outline-secondary btn-sm me-1" onclick="selectSize('XXL')">XXL</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm me-1"
+                                onclick="selectSize('Small')">Small</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm me-1"
+                                onclick="selectSize('Medium')">Medium</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm me-1"
+                                onclick="selectSize('Large')">Large</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm me-1"
+                                onclick="selectSize('Extra Large')">Extra Large</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm me-1"
+                                onclick="selectSize('XXL')">XXL</button>
                             <input type="hidden" id="size" name="size">
                         </div>
                     </div>
                     <hr />
                     <div class="mb-4">
-                        <div class="row align-items-center">
-                            <div class="col-6 col-sm-5">
-                                @livewire('quantity-counter', ['price' => $product->price])
-                            </div>
-
-                            <div class="col-6 col-sm-7">
-                                <button type="submit" class="btn btn-primary w-100">
-                                   $71.56 Add To Cart
-                                </button>
-                            </div>
-                        </div>
+                        @livewire('quantity-counter', ['price' => $product->price])
                     </div>
                 </form>
 
@@ -160,17 +180,18 @@
         <div class="col-12">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab">Description</button>
+                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
+                        data-bs-target="#description" type="button" role="tab">Description</button>
                 </li>
             </ul>
             <div class="tab-content product-section p-3" id="myTabContent">
                 <div class="tab-pane fade show active" id="description" role="tabpanel">
                     <h4>Product Description</h4>
-                        <p>{{ $product->description }}</p>
+                    <p>{{ $product->description }}</p>
 
                     <h4>Benefits</h4>
                     <ul>
-                        @foreach($product->benefits as $benefit)
+                        @foreach ($product->benefits as $benefit)
                             <li>{{ $benefit }}</li>
                         @endforeach
                     </ul>
