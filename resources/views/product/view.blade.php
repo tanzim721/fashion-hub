@@ -43,14 +43,16 @@
                                 </div>
                                 <button type="button" class="btn color-btn me-2 rounded-circle"
                                     style="background-color: {{ $selections ? $selections->color : '#E6DAC1' }}"
-                                    onclick="selectColor('{{ $selections ? $selections->color : '#E6DAC1' }}')"></button>
+                                    onclick="selectColor('{{ $selections ? $selections->color : '#E6DAC1' }}')">
+                                </button>
                                 <button type="button" class="btn btn-sm btn-outline-secondary btn-sm me-1"
-                                    onclick="selectSize('XXL')">{{ $selections ? $selections->size : 'Small' }}</button>
+                                    onclick="selectSize('{{ $selections ? $selections->size : 'Small' }}')">{{ $selections ? $selections->size : 'Small' }}
+                                </button>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary mt-3"
-                                data-bs-toggle="modal">${{ $selections ? $product->price * $selections->quantity + $product->price * 0.25 * $selections->quantity : $product->price }}
+                            <button class="btn btn-primary mt-3" onclick="document.getElementById('exampleModalToggle').style.display='none'; alert('Success! Your order has been placed.');" data-bs-dismiss="modal" data-bs-toggle="modal">
+                                ${{ $selections ? $product->price * $selections->quantity + $product->price * 0.25 * $selections->quantity : $product->price }}
                                 Buy Now</button>
                         </div>
                     </div>
