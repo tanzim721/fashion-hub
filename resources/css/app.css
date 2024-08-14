@@ -113,8 +113,8 @@ body {
 }
 .notification {
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: -2px;
+    right: -12px;
     background-color: #007bff;
     color: #fff;
     width: 20px;

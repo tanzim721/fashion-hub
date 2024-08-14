@@ -2,8 +2,10 @@
     <header class="header">
         <div class="brand">FashionHub</div>
         <div class="cart-icon" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
-            <i class="fas fa-bag-shopping"></i>
-            <div class="notification" id="notification">{{ $selections ? $selections->quantity : 0 }}</div>
+            <div class="btn">
+                <i class="fas fa-bag-shopping"></i>
+                <div class="notification" id="notification">{{ $selections ? $selections->quantity : 0 }}</div>
+            </div>
         </div>
         <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
             tabindex="-1">
