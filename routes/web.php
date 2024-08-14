@@ -5,7 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSelectionController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return "Hello Fashion Hub";
 });
 
 Route::get('/product/{id}', [ProductController::class, 'index']);

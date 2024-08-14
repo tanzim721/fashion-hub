@@ -1,10 +1,9 @@
 <div>
-
     <header class="header">
         <div class="brand">FashionHub</div>
         <div class="cart-icon" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
             <i class="fas fa-bag-shopping"></i>
-            <div class="notification" id="notification">{{ $selections->quantity }}</div>
+            <div class="notification" id="notification">{{ $selections ? $selections->quantity : 0 }}</div>
         </div>
         <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
             tabindex="-1">
@@ -18,7 +17,8 @@
                         <div class="row">
                             @if (count($product->image) > 0)
                                 <div class="col-4">
-                                    <img src="{{ asset($product->image[0]) }}" class="d-block w-100" alt="Product Image 1" style="height: 100px;" />
+                                    <img src="{{ asset($product->image[0]) }}" class="d-block w-100"
+                                        alt="Product Image 1" style="height: 100px;" />
                                 </div>
                             @endif
                             <div class="col-8">
@@ -29,24 +29,29 @@
                                     </div>
                                     <div class="col-5">
                                         <div class="input-group">
-                                            <button type="button" class="btn btn-outline-secondary">
-
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">
                                                 -
                                             </button>
-                                            <span class="btn btn-outline-secondary">{{ $selections->quantity }}</span>
-                                            <button type="button" class="btn btn-outline-secondary">
+                                            <span
+                                                class="btn btn-sm btn-outline-secondary">{{ $selections ? $selections->quantity : 0 }}</span>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">
                                                 +
                                             </button>
                                         </div>
 
                                     </div>
                                 </div>
-                                <button type="button" class="btn color-btn me-2 rounded-circle" style="background-color: {{ $selections->color }}" onclick="selectColor('{{ $selections->color }}')"></button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm me-1" onclick="selectSize('XXL')">{{ $selections->size }}</button>
+                                <button type="button" class="btn color-btn me-2 rounded-circle"
+                                    style="background-color: {{ $selections ? $selections->color : '#E6DAC1' }}"
+                                    onclick="selectColor('{{ $selections ? $selections->color : '#E6DAC1' }}')"></button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary btn-sm me-1"
+                                    onclick="selectSize('XXL')">{{ $selections ? $selections->size : 'Small' }}</button>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary mt-3" data-bs-toggle="modal">${{ $product->price * $selections->quantity + ($product->price * 0.25 * $selections->quantity) }} Buy Now</button>
+                            <button class="btn btn-primary mt-3"
+                                data-bs-toggle="modal">${{ $selections ? $product->price * $selections->quantity + $product->price * 0.25 * $selections->quantity : $product->price }}
+                                Buy Now</button>
                         </div>
                     </div>
                 </div>
@@ -117,7 +122,7 @@
                 <p class="text-muted">{{ $product->subtitle }}</p>
                 <hr />
                 <div class="d-flex justify-content-between align-items-center">
-                    <p class="text-muted price">$71.56</p>
+                    <p class="text-muted price ps-2" style="font-size: 22px; font-weight: bold">${{ $product->price }}</p>
                     <p class="reviews">
                         <button type="button" class="me-1 btn btn-light" style="border-radius: 12px;">
                             ★ 4.8

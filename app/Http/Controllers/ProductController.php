@@ -11,7 +11,7 @@ class ProductController extends Controller
 
     public function index($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         $product->image = json_decode($product->image, true);
         $product->benefits = json_decode($product->benefits, true);
         $product->details = json_decode($product->details, true);
